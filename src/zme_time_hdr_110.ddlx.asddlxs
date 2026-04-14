@@ -1,0 +1,48 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: { 
+    typeName: 'Timesheet', 
+    typeNamePlural: 'Timesheets',
+    title: { type: #STANDARD, label: 'Employee ID', value: 'EmployeeId' } 
+  }
+}
+annotate view ZC_TIME_HDR_110 with
+{
+  /* UI Sections Definition */
+  @UI.facet: [
+    { id: 'HeaderData', 
+      type: #IDENTIFICATION_REFERENCE, 
+      label: 'Header Information', 
+      position: 10 },
+      
+    { id: 'ItemData', 
+      type: #LINEITEM_REFERENCE, 
+      label: 'Daily Entries', 
+      position: 20, 
+      targetElement: '_Items_110' }
+  ]
+
+  @UI.hidden: true
+  TsUuid;
+
+  @EndUserText.label: 'Employee ID'
+  @UI: { lineItem:       [{ position: 10, label: 'Employee ID' }], 
+         identification: [{ position: 10, label: 'Employee ID' }], 
+         selectionField: [{ position: 10 }] }
+  EmployeeId;
+
+  @EndUserText.label: 'Month'
+  @UI: { lineItem:       [{ position: 20, label: 'Month' }], 
+         identification: [{ position: 20, label: 'Month' }] }
+  TsMonth;
+
+  @EndUserText.label: 'Year'
+  @UI: { lineItem:       [{ position: 30, label: 'Year' }], 
+         identification: [{ position: 30, label: 'Year' }] }
+  TsYear;
+
+  @EndUserText.label: 'Status'
+  @UI: { lineItem:       [{ position: 40, label: 'Status' }], 
+         identification: [{ position: 40, label: 'Status' }] }
+  Status;
+}

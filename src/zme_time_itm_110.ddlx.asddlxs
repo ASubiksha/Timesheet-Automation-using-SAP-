@@ -1,0 +1,42 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: { 
+    typeName: 'Daily Entry', 
+    typeNamePlural: 'Daily Entries',
+    title: { type: #STANDARD, label: 'Work Date', value: 'WorkDate' } 
+  }
+}
+annotate view ZC_TIME_ITM_110 with
+{
+  /* Detail Page Section */
+  @UI.facet: [
+    { id: 'ItemDetails', 
+      type: #IDENTIFICATION_REFERENCE, 
+      label: 'Entry Information', 
+      position: 10 }
+  ]
+
+  @UI.hidden: true
+  ItemUuid;
+
+  @UI.hidden: true
+  ParentUuid;
+
+  @EndUserText.label: 'Work Date'
+  @UI: { lineItem:       [{ position: 10, label: 'Work Date' }], 
+         identification: [{ position: 10, label: 'Work Date' }] }
+  WorkDate;
+
+  @EndUserText.label: 'Total Hours'
+  @UI: { lineItem:       [{ position: 20, label: 'Total Hours' }], 
+         identification: [{ position: 20, label: 'Total Hours' }] }
+  TotalHours;
+
+  @EndUserText.label: 'Description'
+  @UI: { lineItem:       [{ position: 30, label: 'Description' }], 
+         identification: [{ position: 30, label: 'Description' }] }
+  Description;
+
+  @UI.hidden: true
+  UnitCode;
+}

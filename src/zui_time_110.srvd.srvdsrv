@@ -1,0 +1,5 @@
+@EndUserText.label: 'service definition'
+define service ZUI_TIME_110 {
+  expose ZC_TIME_HDR_110 as Header;
+  expose ZC_TIME_ITM_110 as Item;
+}

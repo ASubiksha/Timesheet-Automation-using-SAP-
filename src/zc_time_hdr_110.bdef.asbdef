@@ -1,0 +1,26 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZC_TIME_HDR_110 alias Header_110
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Resume;
+  use action Prepare;
+  use action Activate;
+  use action Discard;
+
+  use association _Items_110 { create; with draft; }
+}
+
+define behavior for ZC_TIME_ITM_110 alias Item_110
+{
+  use update;
+  use delete;
+
+  use association _Header_110 { with draft; }
+}

@@ -1,0 +1,73 @@
+unmanaged implementation in class zbp_time_saver_110 unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_TIME_HDR_110 alias Header_110
+implementation in class zbp_time_hdr_110 unique
+draft table ztime_hdr_d_110
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+  draft action Activate optimized;
+  draft action Discard;
+
+  field ( numbering : managed, readonly ) TsUuid;
+  field ( readonly ) LocalLastChangedAt, LastChangedAt;
+  field ( readonly ) LocalCreatedBy, LocalCreatedAt, LocalLastChangedBy;
+
+  association _Items_110 { create; with draft; }
+
+  mapping for ztime_hdr_110
+  {
+    TsUuid             = ts_uuid;
+    EmployeeId         = employee_id;
+    TsMonth            = ts_month;
+    TsYear             = ts_year;
+    Status             = status;
+    LocalCreatedBy     = local_created_by;
+    LocalCreatedAt     = local_created_at;
+    LocalLastChangedBy = local_last_changed_by;
+    LocalLastChangedAt = local_last_changed_at;
+    LastChangedAt      = last_changed_at;
+  }
+}
+
+define behavior for ZI_TIME_ITM_110 alias Item_110
+implementation in class zbp_time_itm_110 unique
+draft table ztime_itm_d_110
+lock dependent by _Header_110
+authorization dependent by _Header_110
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) ItemUuid;
+  field ( readonly ) ParentUuid;
+  field ( readonly ) LocalLastChangedAt, LastChangedAt;
+
+  association _Header_110 { with draft; }
+
+  mapping for ztime_itm_110
+  {
+    ItemUuid           = item_uuid;
+    ParentUuid         = parent_uuid;
+    WorkDate           = work_date;
+    UnitCode           = unit_code;
+    TotalHours         = total_hours;
+    Description        = description;
+    LocalCreatedBy     = local_created_by;
+    LocalCreatedAt     = local_created_at;
+    LocalLastChangedBy = local_last_changed_by;
+    LocalLastChangedAt = local_last_changed_at;
+    LastChangedAt      = last_changed_at;
+  }
+}
